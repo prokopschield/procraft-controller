@@ -1,0 +1,19 @@
+{
+	"name": "procraft-controller",
+	"description": "ProCraft's internal server controller",
+	"version": "0.0.0",
+	"main": "lib/index.js",
+	"bin": {
+		"procraft-controller": "lib/cli.js"
+	},
+	"scripts": {
+		"start": "node lib/cli",
+		"test": "npx nslibmgr test"
+	},
+	"author": "Prokop Schield",
+	"license": "GPL-3.0-or-later",
+	"devDependencies": {
+		"@types/node": ">=14"
+	},
+	"keywords": []
+}
