@@ -1,3 +1,5 @@
 {
-	"MSG_WELCOME": "Welcome to ProCraft!"
+	"MSG_WELCOME": "Welcome to ProCraft!",
+	"MSG_HELP_KEY": "To select an option, press the corresponding key.",
+	"MSG_HELP_ESC": "Press ESC at any point to return to this menu."
 }

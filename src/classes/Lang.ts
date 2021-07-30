@@ -24,6 +24,12 @@ export default class Lang {
 	get MSG_WELCOME() {
 		return this.get('MSG_WELCOME');
 	}
+	get MSG_HELP_ESC() {
+		return this.get('MSG_HELP_ESC');
+	}
+	get MSG_HELP_KEY() {
+		return this.get('MSG_HELP_KEY');
+	}
 }
 
 const langs = new Map<string, Lang>();
