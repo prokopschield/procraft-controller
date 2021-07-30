@@ -12,7 +12,9 @@ export class Queue<T>
 	}
 	/**
 	 * Add values to Queue
+	 *
 	 * Resolves pre-existing Promises first
+	 *
 	 * @param vals Values to add
 	 */
 	async add(...vals: Value<T>[]) {
@@ -39,7 +41,9 @@ export class Queue<T>
 	}
 	/**
 	 * Add values to Queue
+	 *
 	 * Does NOT resolve pre-existing values
+	 *
 	 * @param vals Values to add
 	 */
 	push(...vals: Value<T>[]) {
