@@ -29,10 +29,10 @@ asn1@~0.2.0:
   dependencies:
     safer-buffer "~2.1.0"
 
-doge-config@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/doge-config/-/doge-config-0.3.5.tgz#9a0c07d17ae41c6e27d2c00d6d57e8767f7678da"
-  integrity sha512-V1wVOVhN0WSEkREMR6ZqcKHcPK71D/Z6BeTxOijUWaLd2PX9o/vu0Vxo8Enl9eIjemetf/ppuG8U87iRGrFdkg==
+doge-config@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/doge-config/-/doge-config-0.3.6.tgz#4d6d92f279e9af805f9218c7663b949d7666e62d"
+  integrity sha512-m+tlJpwTgaMFH8DSYAfLsd9M2fT11klDTvCw1pRthaVph+e9oaJRsPorSBBO8iXdvv5xCdZCEBJcXRTmUYt7Lg==
   dependencies:
     doge-json "^1.1.0-3"
 
