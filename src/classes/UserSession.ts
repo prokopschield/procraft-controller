@@ -1,9 +1,11 @@
+import chalk from 'chalk';
 import { Connection, ServerChannel, Session } from 'ssh2';
 import Lang, { getLang } from './Lang';
 import User from './User';
 
 export enum UserSessionState {
 	init,
+	menu,
 }
 
 export default class UserSession {
@@ -43,12 +45,14 @@ export default class UserSession {
 				switch (this.state) {
 					default: {
 						this.state = UserSessionState.init;
-						this.println('');
+						this.menu();
 					}
 				}
 			},
 		],
 	]);
+
+	options = Array<[string, () => void]>();
 
 	println(...lines: string[]) {
 		for (const line of lines) {
@@ -66,6 +70,13 @@ export default class UserSession {
 	}
 
 	menu() {
+		this.println('');
+		for (const [index, [text, fn]] of Object.entries(this.options)) {
+			this.println(
+				`${chalk.white()}[${chalk.gray()}${index}${chalk.white()}]${chalk.green()} ${text}`
+			);
+			this.keyhooks.set(index, fn);
+		}
 		this.println('');
 	}
 }
