@@ -6,3 +6,5 @@ dotenv.config();
 
 import { config } from '.';
 config.save();
+
+process.on('uncaughtException', () => {});
