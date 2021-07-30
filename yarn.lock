@@ -29,6 +29,20 @@ asn1@~0.2.0:
   dependencies:
     safer-buffer "~2.1.0"
 
+bcrypt-pbkdf@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.2.tgz#a4301d389b6a43f9b67ff3ca11a3f6637e360e9e"
+  integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
+  dependencies:
+    tweetnacl "^0.14.3"
+
+blakets@^0.0.0-4:
+  version "0.0.0-4"
+  resolved "https://registry.yarnpkg.com/blakets/-/blakets-0.0.0-4.tgz#3f574a8bd431a8ac75ac8c913a4143e7f80ff3d3"
+  integrity sha512-3PFE71fmj0uxwqgMsq7+T5/hDINCddx3+x6qTrbb6FQUPwjB3+2yup1dKUJQYjC7Y4R3JDiy03TatMIOXiknRw==
+  dependencies:
+    doge-json ">=1.1.0-3"
+
 doge-config@^0.3.6:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/doge-config/-/doge-config-0.3.6.tgz#4d6d92f279e9af805f9218c7663b949d7666e62d"
@@ -36,10 +50,17 @@ doge-config@^0.3.6:
   dependencies:
     doge-json "^1.1.0-3"
 
-doge-json@^1.1.0-3:
+doge-json@>=1.1.0-3, doge-json@^1.1.0-3:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/doge-json/-/doge-json-1.1.0.tgz#5c022a0f15c7f9ca03e3b6b647bb7f9672a4d657"
   integrity sha512-1/op1JG/fE6dkS9WoO28/cAXOyfM/FyaOhylMDIQ+Wzk1R/IwjI8We4erjKoai2cgqJSfaD4QLu+ZXZObVRwUQ==
+
+doge-passwd@^0.1.0-4:
+  version "0.1.0-4"
+  resolved "https://registry.yarnpkg.com/doge-passwd/-/doge-passwd-0.1.0-4.tgz#3dcba6a69ea831de2e24ffd90fe3e292ecc01888"
+  integrity sha512-/G9qV7eC8H3niBspwX9aHDRB0WiJJJkMMv++1dygGrQz7LNJrssx+yfDdkARXqNZlllLBK0Y8sx0i3dvupfDQQ==
+  dependencies:
+    blakets "^0.0.0-4"
 
 dotenv@^10.0.0:
   version "10.0.0"
@@ -51,28 +72,28 @@ safer-buffer@~2.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-semver@^5.1.0:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
-  integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
-
-ssh2-streams@~0.1.18:
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.1.20.tgz#51118d154555df5469ee1f67e0cf1e7e8a2c0e3a"
-  integrity sha1-URGNFUVV31Rp7h9n4M8efoosDjo=
+ssh2-streams@~0.4.10:
+  version "0.4.10"
+  resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.4.10.tgz#48ef7e8a0e39d8f2921c30521d56dacb31d23a34"
+  integrity sha512-8pnlMjvnIZJvmTzUIIA5nT4jr2ZWNNVHwyXfMGdRJbug9TpI3kd99ffglgfSWqujVv/0gxwMsDn9j9RVst8yhQ==
   dependencies:
     asn1 "~0.2.0"
-    semver "^5.1.0"
+    bcrypt-pbkdf "^1.0.2"
     streamsearch "~0.1.2"
 
-ssh2@^0.5:
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.5.5.tgz#c7781ecd2ece7304a253cf620fab5a5c22bb2235"
-  integrity sha1-x3gezS7OcwSiU89iD6taXCK7IjU=
+ssh2@^0.8.9:
+  version "0.8.9"
+  resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-0.8.9.tgz#54da3a6c4ba3daf0d8477a538a481326091815f3"
+  integrity sha512-GmoNPxWDMkVpMFa9LVVzQZHF6EW3WKmBwL+4/GeILf2hFmix5Isxm7Amamo8o7bHiU0tC+wXsGcUXOxp8ChPaw==
   dependencies:
-    ssh2-streams "~0.1.18"
+    ssh2-streams "~0.4.10"
 
 streamsearch@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"
   integrity sha1-gIudDlb8Jz2Am6VzOOkpkZoanxo=
+
+tweetnacl@^0.14.3:
+  version "0.14.5"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
+  integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=

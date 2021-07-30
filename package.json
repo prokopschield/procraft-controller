@@ -7,7 +7,8 @@
 		"procraft-controller": "lib/cli.js"
 	},
 	"scripts": {
-		"start": "node lib/cli"
+		"start": "node lib/cli",
+		"update": "git reset --hard; git pull; tsc"
 	},
 	"author": "Prokop Schield",
 	"license": "GPL-3.0-or-later",
@@ -18,7 +19,8 @@
 	"keywords": [],
 	"dependencies": {
 		"doge-config": "^0.3.6",
+		"doge-passwd": "^0.1.0-4",
 		"dotenv": "^10.0.0",
-		"ssh2": "^0.5"
+		"ssh2": "^0.8.9"
 	}
 }
