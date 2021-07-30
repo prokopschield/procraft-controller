@@ -29,13 +29,14 @@ export default class UserSession {
 
 		this.lang = getLang(this.user.data.str.lang);
 		this.welcome();
+		this.menu();
 
 		this.channel.stdin.on('data', (chunk: Buffer) => {
 			const line = chunk.toString();
 			this.keyhooks.get(line.trim())?.();
 		});
 
-		this.menu();
+		this.channel.on('close', () => this.user.removeSession(this));
 	}
 
 	keyhooks = new Map<string, () => void>([
