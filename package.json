@@ -7,8 +7,7 @@
 		"procraft-controller": "lib/cli.js"
 	},
 	"scripts": {
-		"start": "node lib/cli",
-		"test": "npx nslibmgr test"
+		"start": "node lib/cli"
 	},
 	"author": "Prokop Schield",
 	"license": "GPL-3.0-or-later",
