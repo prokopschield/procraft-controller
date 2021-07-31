@@ -30,6 +30,12 @@ export default class Lang {
 	get MSG_HELP_KEY() {
 		return this.get('MSG_HELP_KEY');
 	}
+	get MENU_MAIN() {
+		return this.get('MENU_MAIN');
+	}
+	get MENU_SETTINGS() {
+		return this.get('MENU_SETTINGS');
+	}
 }
 
 const langs = new Map<string, Lang>();
