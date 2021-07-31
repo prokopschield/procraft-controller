@@ -13,21 +13,33 @@ export default class User {
 		this.data = userdata.__getField(name);
 		this.perm = this.data.obj.perm;
 	}
+
+	/** Set the User's public key */
 	setPublicKey(key: PublicKey) {
 		return this.data.__set('pubkey', hash(key.data));
 	}
+
+	/** Verify the User's public key */
 	verifyPublicKey(key: PublicKey): boolean {
 		return verify(key.data, this.data.str.pubkey);
 	}
+
+	/** Set the User's password */
 	setPassword(password: string) {
 		return this.data.__set('passwd', hash(password));
 	}
+
+	/** Verify the User's password */
 	verifyPassword(password: string): boolean {
 		return verify(password, this.data.str.passwd);
 	}
+
+	/** Add a Session to the User */
 	addSession(session: UserSession) {
 		return this.sessions.add(session);
 	}
+
+	/** Delete a Session from the User */
 	removeSession(session: UserSession) {
 		return this.sessions.delete(session);
 	}
