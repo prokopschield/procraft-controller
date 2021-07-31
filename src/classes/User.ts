@@ -1,16 +1,16 @@
-import { ConfigField, getConfig } from 'doge-config';
+import { ConfigField, getConfigDir } from 'doge-config';
 import { hash, verify } from 'doge-passwd';
 import { PublicKey } from 'ssh2';
 import UserSession from './UserSession';
 
-const userdata = getConfig('users');
+const userdata = getConfigDir('users');
 
 export default class User {
 	data: ConfigField;
 	perm: ConfigField;
 	sessions = new Set<UserSession>();
 	constructor(name: string) {
-		this.data = userdata.__getField(name);
+		this.data = userdata[name];
 		this.perm = this.data.obj.perm;
 	}
 

@@ -19,7 +19,7 @@
 	"keywords": [],
 	"dependencies": {
 		"chalk": "^4.1.2",
-		"doge-config": "^0.3.6",
+		"doge-config": "^0.3.8",
 		"doge-passwd": "^0.1.0",
 		"dotenv": "^10.0.0",
 		"ssh2": "^0.8.9"

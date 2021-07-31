@@ -1,4 +1,4 @@
-import { getConfig } from 'doge-config';
+import { getConfigDir } from 'doge-config';
 import {
 	Connection,
 	PublicKey,
@@ -14,7 +14,7 @@ interface ServerConfig extends ssh_server_config {
 	port: number;
 }
 
-const users = getConfig('users');
+const userdata = getConfigDir('users');
 
 const lastPublicKeyUser = new WeakMap<Connection, PublicKey>();
 const isHooked = new WeakMap<Connection, boolean>();
@@ -23,7 +23,7 @@ export default class Server extends ssh_server {
 	constructor(config: ServerConfig) {
 		super(config, (client, info) => {
 			client.on('authentication', (ctx) => {
-				if (ctx.username in users) {
+				if (ctx.username in userdata) {
 					const user = getUser(ctx.username);
 					if (ctx.method === 'publickey') {
 						if (user.verifyPublicKey(ctx.key)) {

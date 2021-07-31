@@ -70,14 +70,14 @@ color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-doge-config@^0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/doge-config/-/doge-config-0.3.6.tgz#4d6d92f279e9af805f9218c7663b949d7666e62d"
-  integrity sha512-m+tlJpwTgaMFH8DSYAfLsd9M2fT11klDTvCw1pRthaVph+e9oaJRsPorSBBO8iXdvv5xCdZCEBJcXRTmUYt7Lg==
+doge-config@^0.3.8:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/doge-config/-/doge-config-0.3.8.tgz#17093e209e03bf7889aad3f00f25194467ee3c50"
+  integrity sha512-joB+d8/ysYEyH3q+mLx4dzvXkXKkFQOfBZRUJ89gEL9w0kC+RBjEmmZnXcix5jIO5ax2jNfKmT6KVmtN/b1ejw==
   dependencies:
-    doge-json "^1.1.0-3"
+    doge-json "^1.1.0"
 
-doge-json@>=1.1.0-3, doge-json@^1.1.0-3:
+doge-json@>=1.1.0-3, doge-json@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/doge-json/-/doge-json-1.1.0.tgz#5c022a0f15c7f9ca03e3b6b647bb7f9672a4d657"
   integrity sha512-1/op1JG/fE6dkS9WoO28/cAXOyfM/FyaOhylMDIQ+Wzk1R/IwjI8We4erjKoai2cgqJSfaD4QLu+ZXZObVRwUQ==
