@@ -72,11 +72,19 @@ export default class UserSession {
 
 	menu() {
 		this.println('');
+		const clear = () => {
+			for (let i = 0; i < this.options.length; ++i) {
+				this.keyhooks.delete(`${i}`);
+			}
+		};
 		for (const [index, [text, fn]] of Object.entries(this.options)) {
 			this.println(
 				`${chalk.white()}[${chalk.gray()}${index}${chalk.white()}]${chalk.green()} ${text}`
 			);
-			this.keyhooks.set(index, fn);
+			this.keyhooks.set(index, () => {
+				clear();
+				fn();
+			});
 		}
 		this.println('');
 	}
