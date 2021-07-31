@@ -8,7 +8,7 @@
 	},
 	"scripts": {
 		"start": "node lib/cli",
-		"update": "git reset --hard; git pull; tsc"
+		"update": "git reset --hard; git pull; yarn; tsc"
 	},
 	"author": "Prokop Schield",
 	"license": "GPL-3.0-or-later",
@@ -20,7 +20,7 @@
 	"dependencies": {
 		"chalk": "^4.1.2",
 		"doge-config": "^0.3.6",
-		"doge-passwd": "^0.1.0-4",
+		"doge-passwd": "^0.1.0",
 		"dotenv": "^10.0.0",
 		"ssh2": "^0.8.9"
 	}

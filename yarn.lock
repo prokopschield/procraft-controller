@@ -82,10 +82,10 @@ doge-json@>=1.1.0-3, doge-json@^1.1.0-3:
   resolved "https://registry.yarnpkg.com/doge-json/-/doge-json-1.1.0.tgz#5c022a0f15c7f9ca03e3b6b647bb7f9672a4d657"
   integrity sha512-1/op1JG/fE6dkS9WoO28/cAXOyfM/FyaOhylMDIQ+Wzk1R/IwjI8We4erjKoai2cgqJSfaD4QLu+ZXZObVRwUQ==
 
-doge-passwd@^0.1.0-4:
-  version "0.1.0-4"
-  resolved "https://registry.yarnpkg.com/doge-passwd/-/doge-passwd-0.1.0-4.tgz#3dcba6a69ea831de2e24ffd90fe3e292ecc01888"
-  integrity sha512-/G9qV7eC8H3niBspwX9aHDRB0WiJJJkMMv++1dygGrQz7LNJrssx+yfDdkARXqNZlllLBK0Y8sx0i3dvupfDQQ==
+doge-passwd@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/doge-passwd/-/doge-passwd-0.1.0.tgz#efd4bf013cc532281fbe1ab702c64056def21d9e"
+  integrity sha512-xPlTNvR6gyzQXaBNCWyoKlXUKGyPQZqoEdrbEC007jZUpWNNssgDnjaWnp1HrNNUSBBQbqgiMm7yuKwdYqG+wg==
   dependencies:
     blakets "^0.0.0-4"
 
