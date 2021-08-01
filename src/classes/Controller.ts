@@ -25,14 +25,30 @@ export default class Controller extends EventEmitter {
 		this.client = new Client();
 		this.command_queue = new Queue<str>();
 		this.command_delay = +(opts.command_delay || 1200);
-		this.init(opts);
+		this.client.connect(opts.auth);
+		this.client.on('ready', () => {
+			this.init(opts);
+		});
 	}
 	init(opts: ControllerOptions) {
 		const self = this;
-		this.client.connect(opts.auth);
-		this.client.on('ready', () => {
+		{
 			this.client.shell({}, (err, channel) => {
+				if (err && !channel) {
+					return setTimeout(() => {
+						this.init(opts);
+					}, 2000);
+				}
 				this.shell = channel;
+				let exited = false;
+				this.shell.once(
+					'close',
+					() => exited || (exited = (this.init(opts), true))
+				);
+				this.shell.once(
+					'exit',
+					() => exited || (exited = (this.init(opts), true))
+				);
 				this.shell.stdout.on('data', (chunk: Buffer) => {
 					self.emit('stdout', chunk);
 					self.emit('output', chunk);
@@ -47,35 +63,40 @@ export default class Controller extends EventEmitter {
 				opts.scripts.init && this.command_queue.add(opts.scripts.init);
 				this.executor_trigger();
 			});
-		});
+		}
 	}
+	executor_running: boolean = false;
 	async executor_trigger() {
+		if (this.executor_running) return;
+		this.executor_running = true;
 		while (true) {
-			const value_array = this.command_queue.values;
-			const { value: p } = this.command_queue.next();
-			const cmd = await p;
-			while (Date.now() < this.last_output + this.command_delay) {
-				await new Promise((resolve) =>
-					setTimeout(
-						resolve,
-						Date.now() - this.last_output + this.command_delay
-					)
-				);
-			}
-			if (cmd) {
-				if (this.shell) {
-					if (typeof cmd !== 'string' || cmd[cmd.length - 1] === '\n') {
-						this.shell.write(cmd);
-					} else {
-						this.shell.write(`${cmd}\n`);
-					}
+			try {
+				const value_array = this.command_queue.values;
+				const { value: p } = this.command_queue.next();
+				const cmd = await p;
+				while (Date.now() < this.last_output + this.command_delay) {
 					await new Promise((resolve) =>
-						setTimeout(resolve, this.command_delay)
+						setTimeout(
+							resolve,
+							Date.now() - this.last_output + this.command_delay
+						)
 					);
-				} else {
-					value_array.unshift(cmd);
 				}
-			}
+				if (cmd) {
+					if (this.shell) {
+						if (typeof cmd !== 'string' || cmd[cmd.length - 1] === '\n') {
+							this.shell.write(cmd);
+						} else {
+							this.shell.write(`${cmd}\n`);
+						}
+						await new Promise((resolve) =>
+							setTimeout(resolve, this.command_delay)
+						);
+					} else {
+						value_array.unshift(cmd);
+					}
+				}
+			} catch (_err) {}
 		}
 	}
 	run(cmd: str) {
