@@ -1,12 +1,17 @@
 import chalk from 'chalk';
 import { Connection, ServerChannel, Session } from 'ssh2';
+import controllers from '../controllers';
+import Controller from './Controller';
 import Lang, { getLang } from './Lang';
 import User from './User';
 
 export enum UserSessionState {
 	init,
 	menu,
+	hooked,
 }
+
+export type Options = Array<[string, () => void]>;
 
 /**
  * User Session object - where all the fun happens
@@ -32,23 +37,30 @@ export default class UserSession {
 
 		this.lang = getLang(this.user.data.str.lang);
 
-		this.channel.stdin.on('data', (chunk: Buffer) => {
-			const line = chunk.toString();
-			this.keyhooks.get(line.trim())?.();
-		});
+		this.keyhook();
 
 		this.channel.on('close', () => this.user.removeSession(this));
 
-		this.options_main_menu.push([
-			this.lang.MENU_SETTINGS,
-			() => this.settings(),
-		]);
+		this.options_main_menu.push(
+			[this.lang.MENU_SETTINGS, () => this.settings()],
+			[this.lang.MENU_CONTROLLERS, () => this.controllers()]
+		);
 
 		this.options_settings.push([this.lang.MENU_MAIN, () => this.main_menu()]);
 
 		this.welcome();
 		this.main_menu(false);
 	}
+
+	keyhook() {
+		this.channel.stdin.removeAllListeners('data');
+		this.channel.stdin.on('data', this.keyhook_cb);
+	}
+
+	keyhook_cb = (chunk: Buffer) => {
+		const line = chunk.toString();
+		this.keyhooks.get(line.trim())?.();
+	};
 
 	/** Current keyhooks */
 	keyhooks = new Map<string, () => void>([
@@ -57,7 +69,10 @@ export default class UserSession {
 			() => {
 				switch (this.state) {
 					default: {
-						this.state = UserSessionState.init;
+						if (this.hook) {
+							this.hook.unhook(this.channel);
+							this.hook = undefined;
+						}
 						this.main_menu();
 					}
 				}
@@ -83,13 +98,13 @@ export default class UserSession {
 	}
 
 	/** Main menu entries */
-	options_main_menu = Array<[string, () => void]>();
+	options_main_menu: Options = [];
 
 	/** Settings */
-	options_settings = Array<[string, () => void]>();
+	options_settings: Options = [];
 
 	/** Current menu options */
-	options = Array<[string, () => void]>();
+	options: Options = [];
 
 	/**
 	 * Write lines to User's Terminal
@@ -129,6 +144,8 @@ export default class UserSession {
 	 * Open a menu to the User
 	 */
 	menu(clear_screen: boolean = false) {
+		this.state = UserSessionState.menu;
+		this.keyhook();
 		if (clear_screen) {
 			this.clear();
 		} else {
@@ -150,5 +167,28 @@ export default class UserSession {
 			});
 		}
 		this.println('');
+	}
+
+	hook?: Controller;
+
+	/** Open the controllers menu to the User */
+	controllers() {
+		const opts: Options = [];
+		for (const [name, controller] of Object.entries(controllers)) {
+			if (this.user.hasPermission(`controllers.${name}`)) {
+				opts.push([
+					name,
+					() => {
+						this.clear(this.lang.MSG_HELP_ESC);
+						controller.hook(this.channel);
+						this.hook = controller;
+						this.state = UserSessionState.hooked;
+					},
+				]);
+			}
+		}
+		this.options = opts;
+		this.active_menu_name = this.lang.MENU_CONTROLLERS;
+		this.menu(true);
 	}
 }

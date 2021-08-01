@@ -36,6 +36,9 @@ export default class Lang {
 	get MENU_SETTINGS() {
 		return this.get('MENU_SETTINGS');
 	}
+	get MENU_CONTROLLERS() {
+		return this.get('MENU_CONTROLLERS');
+	}
 }
 
 const langs = new Map<string, Lang>();

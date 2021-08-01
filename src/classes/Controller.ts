@@ -88,10 +88,18 @@ export default class Controller extends EventEmitter {
 			if (current_hook) {
 				current_hook.unhook(client);
 			}
-			client.stdin.pipe(this.shell);
-			this.shell.stdout.pipe(client.stdout);
-			this.shell.stderr.pipe(client.stderr);
+			const stdin_hook =
+				hooks_stdin.get(this) ||
+				((chunk: Buffer) => this.shell && this.shell.stdin.write(chunk));
+			client.stdin.on('data', stdin_hook);
+			const stdout_hook =
+				hooks_stdout.get(client) ||
+				((chunk: Buffer) => client.stdout.write(chunk));
+			this.shell.stdout.on('data', stdout_hook);
+			this.shell.stderr.on('data', stdout_hook);
 			hooks.set(client, this);
+			hooks_stdin.set(this, stdin_hook);
+			hooks_stdout.set(client, stdout_hook);
 			return true;
 		} catch (e) {
 			return false;
@@ -99,12 +107,22 @@ export default class Controller extends EventEmitter {
 	}
 	unhook(client: ServerChannel): boolean {
 		if (!this.shell) return false;
-		client.stdin.unpipe(this.shell);
-		this.shell.stdout.pipe(client.stdout);
-		this.shell.stderr.pipe(client.stdout);
+		const stdin_hook = hooks_stdin.get(this);
+		if (stdin_hook) {
+			client.stdin.removeListener('data', stdin_hook);
+		}
+		const stdout_hook = hooks_stdout.get(client);
+		if (stdout_hook) {
+			this.shell.stdout.removeListener('data', stdout_hook);
+			this.shell.stderr.removeListener('data', stdout_hook);
+		}
 		hooks.delete(client);
 		return true;
 	}
 }
 
+type DataHook = (chunk: Buffer) => void;
+
 const hooks = new WeakMap<ServerChannel, Controller>();
+const hooks_stdin = new WeakMap<Controller, DataHook>();
+const hooks_stdout = new WeakMap<ServerChannel, DataHook>();
